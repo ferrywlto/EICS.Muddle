@@ -23,9 +23,9 @@ public class Guess {
         return _result;
     }
 
-    private MatchResult DetermineResult(char a, char b) {
-        if (a.Equals(b)) return MatchResult.FullHit;
-        return _answer.Contains(a) ? MatchResult.CharHit : MatchResult.NoneHit;
+    private MatchResult DetermineResult(char charFromInput, char charFromAnswer) {
+        if (charFromInput.Equals(charFromAnswer)) return MatchResult.FullHit;
+        return _answer.Contains(charFromInput) ? MatchResult.CharHit : MatchResult.NoneHit;
     }
 
     private static string Cleanse(string input) => input.Trim().ToLower();
