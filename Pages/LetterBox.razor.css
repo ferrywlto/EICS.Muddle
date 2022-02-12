@@ -1,0 +1,15 @@
+.tile-full-hit {
+    font-weight: bold;
+    background-color: green;
+    color: white;
+}
+.tile-partial-hit {
+    font-weight: bold;
+    background-color: yellow;
+    color: white;
+}
+.tile-not-hit {
+    font-weight: bold;
+    background-color: dimgray;
+    color: white;
+}

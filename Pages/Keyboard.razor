@@ -1,0 +1,53 @@
+@using EICS.WordleBlazor.Game
+@inject Game _game
+<div id="container" tabindex="0" @onkeydown="OnKeyDown" @ref="_container" @onfocusout="CatchFocus">
+    <MudGrid Justify="Justify.Center" Spacing="1">
+        <KeyRow KeysToGenerate="_keyboardRows[0]" />
+    </MudGrid>
+    <MudGrid Justify="Justify.Center" Spacing="1">
+        <KeyRow KeysToGenerate="_keyboardRows[1]" />
+    </MudGrid>
+    <MudGrid Justify="Justify.Center" Spacing="1">
+        <MudItem xs="2" Class="d-flex justify-center">
+            <MudButton Variant="Variant.Filled" Color="@Color.Info" Class="black-gold-container key-button"
+                       @onclick="OnEnterPressed" >enter</MudButton>
+        </MudItem>
+        <KeyRow KeysToGenerate="_keyboardRows[2]"/>
+        <MudItem xs="2" Class="d-flex justify-center">
+            <MudIconButton Icon="@Icons.Material.Outlined.Backspace" Variant="Variant.Filled" Color="Color.Info" Class="black-gold-container key-button"
+                           @onclick="_ => _game.Back()"/>
+        </MudItem>
+    </MudGrid>
+</div>
+@code {
+    ElementReference _container;
+
+    string[][] _keyboardRows = {
+        new[] { "q", "w", "e", "r", "t", "y", "u", "i", "o", "p" },
+        new[] { "a", "s", "d", "f", "g", "h", "j", "k", "l" },
+        new[] { "z", "x", "c", "v", "b", "n", "m" },
+    };
+
+    protected override async Task OnAfterRenderAsync(bool firstRender) { await CatchFocus(); }
+    private async Task CatchFocus() => await _container.FocusAsync();
+    private void OnKeyDown(KeyboardEventArgs obj) {
+        if(obj.Repeat) return;
+
+        var value = obj.Key.ToLower().Trim();
+        switch (value) {
+            case "backspace": _game.Back();
+                return;;
+            case "enter": _game.Guess();
+                return;;
+            default: {
+                if(char.IsLetter(value[0]))
+                    _game.Input(value[0]);
+                break;
+            }
+        }
+    }
+
+    private void OnEnterPressed(MouseEventArgs obj) {
+        _game.Guess();
+    }
+}

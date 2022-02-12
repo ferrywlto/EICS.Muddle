@@ -1,0 +1,30 @@
+@using EICS.WordleBlazor.Game
+@inject Game _game;
+
+⬜ 🟪 🟩<br/>
+
+@* Results *@
+@if (_game.Results.Any()) {
+    foreach (var guessResult in _game.Results) {
+        <MudGrid>
+            @foreach (var gr in guessResult) {
+                <MudItem>
+                    @switch (gr.Result) {
+                        case MatchResult.NoneHit:
+                            <MudText Typo="Typo.button">⬜</MudText>
+                            break;
+                        case MatchResult.CharHit:
+                            <MudText Typo="Typo.button">🟪</MudText>
+                            break;
+                        case MatchResult.FullHit:
+                            <MudText Typo="Typo.button">🟩</MudText>
+                            break;
+                        default:
+                            throw new ArgumentOutOfRangeException();
+                    }
+                </MudItem>
+            }
+        </MudGrid>
+        <br/>
+    }
+}

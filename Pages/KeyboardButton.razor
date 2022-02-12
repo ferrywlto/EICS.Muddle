@@ -1,0 +1,12 @@
+<MudButton Variant="Variant.Filled"
+           Class="black-gold-container key-button"
+           @onclick="OnClick">@Text</MudButton>
+
+@code {
+    [Parameter]
+    public string Text { get; set; } = null!;
+
+    [Parameter]
+    public Action<MouseEventArgs> OnClick { get; set; } = null!;
+
+}

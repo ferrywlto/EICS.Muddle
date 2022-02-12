@@ -1,0 +1,48 @@
+﻿
+@page "/"
+@using EICS.WordleBlazor.Game
+@inject Game _game
+@implements IDisposable
+<div id="container">
+    @foreach (var guessResult in _game.Results) {
+        <MudGrid Justify="Justify.Center" Spacing="1">
+            @foreach (var gr in guessResult) {
+                <MudItem Class="d-flex justify-center">
+                    <LetterBox Letter="gr.Letter" MatchResult="gr.Result" />
+                </MudItem>
+            }
+        </MudGrid>
+        <br/>
+    }
+    @if (_game.IsWin) {
+        <MudAlert Severity="Severity.Success" Variant="Variant.Filled" Elevation="24" NoIcon="true">Congrats!</MudAlert>
+    }
+    else {
+        <MudGrid Justify="Justify.Center" Spacing="1" my-0>
+            @for (var i = 0; i < _game.Difficulty; i += 1) {
+                var idx = i;
+                <MudItem Class="d-flex justify-center">
+                    <InputLetterBox Letter="_game.GetInput(idx)"/>
+                </MudItem>
+            }
+        </MudGrid>
+    }
+    <br/>
+    <div style="position: fixed; bottom: 10vh;">
+        <Keyboard/>
+    </div>
+</div>
+
+@code {
+    public void Dispose() {
+        _game.GameUpdated -= OnGameUpdated;
+        _game.InputChanged -= OnInputChanged;
+    }
+    protected override void OnInitialized() {
+        _game.InputChanged += OnInputChanged;
+        _game.GameUpdated += OnGameUpdated;
+    }
+    private void OnInputChanged() { InvokeAsync(StateHasChanged); }
+    private void OnGameUpdated() { InvokeAsync(StateHasChanged); }
+
+}
