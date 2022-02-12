@@ -12,9 +12,9 @@
 
 @code {
     [Parameter]
-    public string[]? KeysToGenerate { get; set; }
+    public char[]? KeysToGenerate { get; set; }
 
-    private void NotifyKeyClick(string key) {
-        _game.Input(key[0]);
+    private void NotifyKeyClick(char key) {
+        _game.Input(key);
     }
 }

@@ -10,7 +10,7 @@
     <MudGrid Justify="Justify.Center" Spacing="1">
         <MudItem xs="2" Class="d-flex justify-center">
             <MudButton Variant="Variant.Filled" Color="@Color.Info" Class="black-gold-container key-button"
-                       @onclick="OnEnterPressed" >enter</MudButton>
+                       @onclick="_ => _game.Guess()" >enter</MudButton>
         </MudItem>
         <KeyRow KeysToGenerate="_keyboardRows[2]"/>
         <MudItem xs="2" Class="d-flex justify-center">
@@ -22,10 +22,10 @@
 @code {
     ElementReference _container;
 
-    string[][] _keyboardRows = {
-        new[] { "q", "w", "e", "r", "t", "y", "u", "i", "o", "p" },
-        new[] { "a", "s", "d", "f", "g", "h", "j", "k", "l" },
-        new[] { "z", "x", "c", "v", "b", "n", "m" },
+    char[][] _keyboardRows = {
+        new[] { 'q', 'w', 'e', 'r', 't', 'y', 'u', 'i', 'o', 'p' },
+        new[] { 'a', 's', 'd', 'f', 'g', 'h', 'j', 'k', 'l' },
+        new[] { 'z', 'x', 'c', 'v', 'b', 'n', 'm' },
     };
 
     protected override async Task OnAfterRenderAsync(bool firstRender) { await CatchFocus(); }
@@ -40,14 +40,10 @@
             case "enter": _game.Guess();
                 return;;
             default: {
-                if(char.IsLetter(value[0]))
+                if(value.Length == 1 && char.IsLetter(value[0]))
                     _game.Input(value[0]);
                 break;
             }
         }
-    }
-
-    private void OnEnterPressed(MouseEventArgs obj) {
-        _game.Guess();
     }
 }
