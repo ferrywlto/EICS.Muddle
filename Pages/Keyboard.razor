@@ -1,5 +1,6 @@
 @using EICS.WordleBlazor.Game
 @inject Game _game
+@inject GameInput _gameInput
 <div id="container" tabindex="0" @onkeydown="OnKeyDown" @ref="_container" @onfocusout="CatchFocus">
     <MudGrid Justify="Justify.Center" Spacing="1">
         <KeyRow KeysToGenerate="_keyboardRows[0]" />
@@ -10,40 +11,45 @@
     <MudGrid Justify="Justify.Center" Spacing="1">
         <MudItem xs="2" Class="d-flex justify-center">
             <MudButton Variant="Variant.Filled" Color="@Color.Info" Class="black-gold-container key-button"
-                       @onclick="_ => _game.Guess()" >enter</MudButton>
+                       @onclick="_ => Guess()" >enter</MudButton>
         </MudItem>
         <KeyRow KeysToGenerate="_keyboardRows[2]"/>
         <MudItem xs="2" Class="d-flex justify-center">
             <MudIconButton Icon="@Icons.Material.Outlined.Backspace" Variant="Variant.Filled" Color="Color.Info" Class="black-gold-container key-button"
-                           @onclick="_ => _game.Back()"/>
+                           @onclick="_ => Back()"/>
         </MudItem>
     </MudGrid>
 </div>
 @code {
-    ElementReference _container;
-
-    char[][] _keyboardRows = {
+    private ElementReference _container;
+    private char[][] _keyboardRows = {
         new[] { 'q', 'w', 'e', 'r', 't', 'y', 'u', 'i', 'o', 'p' },
         new[] { 'a', 's', 'd', 'f', 'g', 'h', 'j', 'k', 'l' },
         new[] { 'z', 'x', 'c', 'v', 'b', 'n', 'm' },
     };
-
     protected override async Task OnAfterRenderAsync(bool firstRender) { await CatchFocus(); }
     private async Task CatchFocus() => await _container.FocusAsync();
-    private void OnKeyDown(KeyboardEventArgs obj) {
-        if(obj.Repeat) return;
+    private void OnKeyDown(KeyboardEventArgs e) {
+        if(e.Repeat) return;
 
-        var value = obj.Key.ToLower().Trim();
+        var value = e.Key.Trim().ToLower();
         switch (value) {
-            case "backspace": _game.Back();
-                return;;
-            case "enter": _game.Guess();
-                return;;
+            case "enter": Guess();
+                return;
+            case "backspace": Back();
+                return;
             default: {
                 if(value.Length == 1 && char.IsLetter(value[0]))
-                    _game.Input(value[0]);
+                    _gameInput.Input(value[0]);
                 break;
             }
         }
+    }
+
+    private void Back() => _gameInput.Back();
+    private void Guess() {
+        if(!_gameInput.CanFlush()) return;
+
+        _game.Guess(_gameInput.Flush());
     }
 }

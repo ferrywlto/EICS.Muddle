@@ -1,7 +1,7 @@
-﻿
-@page "/"
+﻿@page "/"
 @using EICS.WordleBlazor.Game
 @inject Game _game
+@inject GameInput _gameInput
 @implements IDisposable
 <div id="container">
     @foreach (var guessResult in _game.Results) {
@@ -22,7 +22,7 @@
             @for (var i = 0; i < _game.Difficulty; i += 1) {
                 var idx = i;
                 <MudItem Class="d-flex justify-center">
-                    <InputLetterBox Letter="_game.GetInput(idx)"/>
+                    <InputLetterBox Letter="_gameInput.GetInputAt(idx)"/>
                 </MudItem>
             }
         </MudGrid>
@@ -36,11 +36,11 @@
 @code {
     public void Dispose() {
         _game.GameUpdated -= OnGameUpdated;
-        _game.InputChanged -= OnInputChanged;
+        _gameInput.InputChanged -= OnInputChanged;
     }
     protected override void OnInitialized() {
-        _game.InputChanged += OnInputChanged;
         _game.GameUpdated += OnGameUpdated;
+        _gameInput.InputChanged += OnInputChanged;
     }
     private void OnInputChanged() { InvokeAsync(StateHasChanged); }
     private void OnGameUpdated() { InvokeAsync(StateHasChanged); }
