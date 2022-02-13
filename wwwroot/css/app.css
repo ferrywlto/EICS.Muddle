@@ -1,4 +1,6 @@
-﻿html, body {
+﻿@import url("loading.css");
+
+html, body {
     font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
 }
 
@@ -87,7 +89,6 @@ a, .btn-link {
     box-sizing: border-box;
     margin: auto;
 
-    border: 1px solid wheat;
     text-transform: uppercase;
     user-select: none;
 }

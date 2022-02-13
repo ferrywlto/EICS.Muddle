@@ -4,17 +4,35 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-    <title>EICS.WordleBlazor</title>
+
+    <title>EICS.WordleBlazor (Muddle/乜度)</title>
     <base href="/" />
     <link href="css/app.css" rel="stylesheet" />
-
     <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap" rel="stylesheet" />
     <link href="_content/MudBlazor/MudBlazor.min.css" rel="stylesheet" />
     <link href="EICS.WordleBlazor.styles.css" rel="stylesheet" />
 </head>
 
 <body>
-    <div id="app">Loading...</div>
+    <div id="app2">
+        <div class="loading-container">
+            <div class="loading-text">Loading Muddle...</div>
+            <div class="dots-container">
+                <div class="dot dot-1"></div>
+                <div class="dot dot-2"></div>
+                <div class="dot dot-3"></div>
+                <div class="dot dot-4"></div>
+                <div class="dot dot-5"></div>
+                <div class="dot dot-6"></div>
+                <div class="dot dot-7"></div>
+            </div>
+        </div>
+        <svg>
+            <filter id="gooey">
+                <feGaussianBlur in="SourceGraphic" result="blur" />
+            </filter>
+        </svg>
+    </div>
 
     <div id="blazor-error-ui">
         An unhandled error has occurred.
