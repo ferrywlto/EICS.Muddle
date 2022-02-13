@@ -2,65 +2,69 @@ namespace EICS.WordleBlazor.Game;
 
 public class GameInput {
     public event Action? InputChanged;
-    private readonly char[] _inputBuffer;
-    private int _currentIdx;
-
-    public GameInput(int length) {
-        _inputBuffer = new char[length];
-
-        ResetInput();
-    }
+    private char[] _buffer = Array.Empty<char>();
+    private int _idx;
+    private int _size;
     public char GetInputAt(int idx) {
+        if (BufferNotSet()) return ' ';
+
         if (idx < 0) idx = 0;
-        if (idx > _inputBuffer.Length) idx = _inputBuffer.Length;
-        return _inputBuffer[idx];
+        if (idx > _buffer.Length) idx = _buffer.Length;
+        return _buffer[idx];
     }
     public string Flush() {
         if (!CanFlush())
             throw new Exception("Pre-mature flush. Do it only when buffer is fully filled.");
 
-        var text = string.Join(string.Empty, _inputBuffer);
+        var text = string.Join(string.Empty, _buffer);
 
-        ResetInput();
+        ResetBuffer();
 
         return text;
     }
+
     public void Input(char letter) {
-        if(!IndexInValidRange()) return;
+        if(BufferNotSet() || InvalidIndexRange()) return;
 
-        if(_inputBuffer[_currentIdx].Equals(' '))
-            _inputBuffer[_currentIdx] = letter;
+        if(_buffer[_idx].Equals(' '))
+            _buffer[_idx] = letter;
 
-        if (_currentIdx < MaxIndex) {
-            _currentIdx += 1;
+        if (_idx < MaxIndex) {
+            _idx += 1;
         }
 
         InputChanged?.Invoke();
     }
     public void Back() {
-        if(!IndexInValidRange()) return;
+        if(BufferNotSet() || InvalidIndexRange()) return;
 
-        if (_currentIdx > MinIndex) {
-            if (_inputBuffer[_currentIdx].Equals(' ')) {
-                _currentIdx -= 1;
-                _inputBuffer[_currentIdx] = ' ';
+        if (_idx > MinIndex) {
+            if (_buffer[_idx].Equals(' ')) {
+                _idx -= 1;
+                _buffer[_idx] = ' ';
             }
             else {
-                _inputBuffer[_currentIdx] = ' ';
+                _buffer[_idx] = ' ';
             }
         }
 
         InputChanged?.Invoke();
     }
-    private void ResetInput() {
-        for (var i = 0; i < _inputBuffer.Length; i++) {
-            _inputBuffer[i] = ' ';
-        }
-        _currentIdx = MinIndex;
+
+    public void Reset(int length) {
+        _size = length;
+
+        ResetBuffer();
     }
 
-    public bool CanFlush() => _inputBuffer.All(char.IsLetter);
-    private bool IndexInValidRange() => _currentIdx >= MinIndex && _currentIdx <= MaxIndex;
+    private void ResetBuffer() {
+        _buffer = Enumerable.Repeat(' ', _size).ToArray();
+        _idx = MinIndex;
+    }
+
+    public bool CanFlush() => _buffer.All(char.IsLetter);
+    private bool BufferNotSet() => _buffer.Length == 0;
+    private bool InvalidIndexRange() => _idx < MinIndex || _idx > MaxIndex;
     private int MinIndex => 0;
-    private int MaxIndex => _inputBuffer.Length - 1;
+    private int MaxIndex => _buffer.Length - 1;
 }

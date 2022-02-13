@@ -2,8 +2,9 @@
 @using EICS.WordleBlazor.Game
 @inject Game _game
 @inject GameInput _gameInput
+@inject AnswerProvider _answerProvider
 @implements IDisposable
-<div class="app">
+<div class="app-container">
 <div class="container">
     @if (_game.IsLose) {
         <MudAlert Severity="Severity.Warning" Variant="Variant.Filled" Elevation="24" NoIcon="true" ContentAlignment="HorizontalAlignment.Center">
@@ -38,7 +39,6 @@
 </div>
 <div class="container" style=" bottom: 0;">
     <Keyboard/>
-
 </div>
 </div>
 @code {
@@ -46,10 +46,16 @@
         _game.GameUpdated -= OnGameUpdated;
         _gameInput.InputChanged -= OnInputChanged;
     }
-    protected override void OnInitialized() {
+    protected override async Task OnInitializedAsync() {
+        Console.WriteLine("OnInitialized");
         _game.GameUpdated += OnGameUpdated;
         _gameInput.InputChanged += OnInputChanged;
+
+        var answer = await _answerProvider.GetNewAnswer();
+        _game.Reset(answer, 5);
+        _gameInput.Reset(answer.Length);
     }
+
     private void OnInputChanged() { InvokeAsync(StateHasChanged); }
     private void OnGameUpdated() { InvokeAsync(StateHasChanged); }
 

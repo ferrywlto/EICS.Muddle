@@ -769,3 +769,4 @@ local-*.sh
 .sln
 wwwroot/word-list/
 Properties/launchSettings.json
+wwwroot/word-list.txt
