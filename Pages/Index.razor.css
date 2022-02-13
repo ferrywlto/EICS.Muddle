@@ -1,5 +1,10 @@
-#container {
+.container {
     width: 100%;
     min-width: 480px;
-    max-width: 640px;
+    max-width: 720px;
+
+}
+.app {
+    width: 100%;
+    margin: auto;
 }

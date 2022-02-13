@@ -3,23 +3,30 @@
 @inject Game _game
 @inject GameInput _gameInput
 @implements IDisposable
-<div id="container">
+<div class="app">
+<div class="container">
+    @if (_game.IsLose) {
+        <MudAlert Severity="Severity.Warning" Variant="Variant.Filled" Elevation="24" NoIcon="true" ContentAlignment="HorizontalAlignment.Center">
+            @_game.Answer.ToUpper()
+        </MudAlert>
+        <br/>
+    }
     @foreach (var guessResult in _game.Results) {
         <MudGrid Justify="Justify.Center" Spacing="1">
-            @foreach (var gr in guessResult) {
+            @foreach ((var letter, var matchResult) in guessResult) {
                 <MudItem Class="d-flex justify-center">
-                    <LetterBox Letter="gr.Letter" MatchResult="gr.Result" />
+                    <LetterBox Letter="letter" MatchResult="matchResult"/>
                 </MudItem>
             }
         </MudGrid>
         <br/>
     }
     @if (_game.IsWin) {
-        <MudAlert Severity="Severity.Success" Variant="Variant.Filled" Elevation="24" NoIcon="true">Congrats!</MudAlert>
+        <MudAlert Severity="Severity.Success" Variant="Variant.Filled" Elevation="24" NoIcon="true" ContentAlignment="HorizontalAlignment.Center">Congratuations!</MudAlert>
     }
-    else {
-        <MudGrid Justify="Justify.Center" Spacing="1" my-0>
-            @for (var i = 0; i < _game.Difficulty; i += 1) {
+    else if(!_game.IsLose) {
+        <MudGrid Justify="Justify.Center" Spacing="1">
+            @for (var i = 0; i < _game.Answer.Length; i += 1) {
                 var idx = i;
                 <MudItem Class="d-flex justify-center">
                     <InputLetterBox Letter="_gameInput.GetInputAt(idx)"/>
@@ -28,11 +35,12 @@
         </MudGrid>
     }
     <br/>
-    <div style="position: fixed; bottom: 10vh;">
-        <Keyboard/>
-    </div>
 </div>
+<div class="container" style=" bottom: 0;">
+    <Keyboard/>
 
+</div>
+</div>
 @code {
     public void Dispose() {
         _game.GameUpdated -= OnGameUpdated;
