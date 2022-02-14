@@ -1,4 +1,9 @@
-﻿@inherits LayoutComponentBase
+﻿@using EICS.WordleBlazor.Game
+@inherits LayoutComponentBase
+@inject Game _game
+@inject GameInput _gameInput
+@inject AnswerProvider _answerProvider
+@implements IDisposable
 
 <MudThemeProvider IsDarkMode="true" />
 <MudDialogProvider />
@@ -7,10 +12,10 @@
 <MudLayout>
     <MudAppBar Elevation="0">
         <MudSpacer/>
-        <MudText Typo="Typo.h4">Muddle!🤣</MudText>
+        <MudText Typo="Typo.h4">Muddle</MudText>
         <MudSpacer/>
-        <MudIconButton Icon="@Icons.Custom.Brands.MudBlazor" Color="Color.Inherit" Link="https://mudblazor.com/" Target="_blank"/>
-        <MudIconButton Icon="@Icons.Custom.Brands.GitHub" Color="Color.Inherit" Link="https://github.com/Garderoben/MudBlazor" Target="_blank"/>
+        <MudIconButton Icon="@Icons.Material.Filled.Refresh" Color="Color.Inherit" OnClick="ResetGame" Disabled="!CanReset"/>
+        <MudIconButton Icon="@Icons.Custom.Brands.GitHub" Color="Color.Inherit" Link="https://github.com/ferrywlto/EICS.WordleBlazor" Target="_blank"/>
     </MudAppBar>
     <MudMainContent>
         <MudContainer MaxWidth="MaxWidth.Large" Class="my-16 pt-16">
@@ -18,3 +23,18 @@
         </MudContainer>
     </MudMainContent>
 </MudLayout>
+
+@code {
+    private bool CanReset => _game.IsLose || _game.IsWin;
+    private async Task ResetGame() {
+        var answer = await _answerProvider.GetNewAnswer();
+        _game.Reset(answer, 6);
+        _gameInput.Reset(answer.Length);
+    }
+
+    public void Dispose() {
+        _game.GameUpdated -= OnGameUpdated;
+    }
+    protected override void OnInitialized() { _game.GameUpdated += OnGameUpdated; }
+    private void OnGameUpdated() { InvokeAsync(StateHasChanged); }
+}
