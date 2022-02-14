@@ -1,9 +1,13 @@
 @using EICS.WordleBlazor.Game
 @inject Game _game
-<MudButton Variant="Variant.Filled"
-           Class="@("key-button "+ GetCssStyle())"
-           @onclick="OnClick">@Text</MudButton>
+@* The generated tag data from MudBlazor components will change, have to put the styles in app.css instead of *@
+@* KeyboardButton.razor.css. Components that use HTML tag like LetterBox can use LetterBox.razor.css. *@
+@* We choose <div> over putting the styles to app.css *@
+@* <MudButton Variant="Variant.Filled" *@
+@*            Class=@("key-button "+ GetCssStyle()) *@
+@*            @onclick="OnClick">@Text</MudButton> *@
 
+<div Class=@("key-button key-button-letter " + GetCssStyle()) onclick="@OnClick">@Text</div>
 @code {
     [Parameter]
     public char Text { get; set; }

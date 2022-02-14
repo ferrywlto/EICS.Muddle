@@ -51,7 +51,7 @@
         _gameInput.InputChanged += OnInputChanged;
 
         var answer = await _answerProvider.GetNewAnswer();
-        _game.Reset(answer, 5);
+        _game.Reset(answer, 6);
         _gameInput.Reset(answer.Length);
     }
 

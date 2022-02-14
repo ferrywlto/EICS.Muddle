@@ -1,0 +1,24 @@
+.key-button-letter {
+    text-transform: uppercase;
+    margin: auto;
+    text-align: center;
+    vertical-align: middle;
+    box-shadow: 0 3px 1px -2px rgba(0,0,0,.2),0 2px 2px 0 rgba(0,0,0,.14),0 1px 5px 0 rgba(0,0,0,.12);
+    height: 2.5rem;
+    line-height: 2.5rem;
+    border-radius: 5px;
+}
+.btn-none-hit {
+    background-color: dimgray !important;
+    color: white !important;
+}
+
+.btn-char-hit {
+    background-color: darkgoldenrod !important;
+    color: white !important;
+}
+
+.btn-full-hit {
+    background-color: darkgreen !important;
+    color: white !important;
+}
