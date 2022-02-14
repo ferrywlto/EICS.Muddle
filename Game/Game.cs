@@ -14,6 +14,7 @@ public class Game {
     }
 
     public void Reset(string answer, int maxAttempt) {
+        IsWin = false;
         Answer = answer;
         MaxAttempt = maxAttempt;
         Results.Clear();
