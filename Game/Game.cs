@@ -22,7 +22,9 @@ public class Game {
     }
 
     public void Guess(string input) {
+        if(IsWin || IsLose) return;
         if(Answer.Equals(string.Empty)) return;
+        if(Results.Count == MaxAttempt) return;
 
         var guess = new Guess(Answer);
         var guessResults = guess.Match(input);
