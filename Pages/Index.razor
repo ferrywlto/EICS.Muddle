@@ -5,41 +5,41 @@
 @inject AnswerProvider _answerProvider
 @implements IDisposable
 <div class="app-container">
-<div class="container">
-    @if (_game.IsLose) {
-        <MudAlert Severity="Severity.Warning" Variant="Variant.Filled" Elevation="24" NoIcon="true" ContentAlignment="HorizontalAlignment.Center">
-            @_game.Answer.ToUpper()
-        </MudAlert>
+    <div class="container">
+        @if (_game.IsLose) {
+            <MudAlert Severity="Severity.Warning" Variant="Variant.Filled" Elevation="24" NoIcon="true" ContentAlignment="HorizontalAlignment.Center">
+                @_game.Answer.ToUpper()
+            </MudAlert>
+            <br/>
+        }
+        @foreach (var guessResult in _game.Results) {
+            <MudGrid Justify="Justify.Center" Spacing="1">
+                @foreach ((var letter, var matchResult) in guessResult) {
+                    <MudItem Class="d-flex justify-center">
+                        <LetterBox Letter="letter" MatchResult="matchResult"/>
+                    </MudItem>
+                }
+            </MudGrid>
+            <br/>
+        }
+        @if (_game.IsWin) {
+            <MudAlert Severity="Severity.Success" Variant="Variant.Filled" Elevation="24" NoIcon="true" ContentAlignment="HorizontalAlignment.Center">Congratuations!</MudAlert>
+        }
+        else if(!_game.IsLose) {
+            <MudGrid Justify="Justify.Center" Spacing="1">
+                @for (var i = 0; i < _game.Answer.Length; i += 1) {
+                    var idx = i;
+                    <MudItem Class="d-flex justify-center">
+                        <InputLetterBox Letter="_gameInput.GetInputAt(idx)"/>
+                    </MudItem>
+                }
+            </MudGrid>
+        }
         <br/>
-    }
-    @foreach (var guessResult in _game.Results) {
-        <MudGrid Justify="Justify.Center" Spacing="1">
-            @foreach ((var letter, var matchResult) in guessResult) {
-                <MudItem Class="d-flex justify-center">
-                    <LetterBox Letter="letter" MatchResult="matchResult"/>
-                </MudItem>
-            }
-        </MudGrid>
-        <br/>
-    }
-    @if (_game.IsWin) {
-        <MudAlert Severity="Severity.Success" Variant="Variant.Filled" Elevation="24" NoIcon="true" ContentAlignment="HorizontalAlignment.Center">Congratuations!</MudAlert>
-    }
-    else if(!_game.IsLose) {
-        <MudGrid Justify="Justify.Center" Spacing="1">
-            @for (var i = 0; i < _game.Answer.Length; i += 1) {
-                var idx = i;
-                <MudItem Class="d-flex justify-center">
-                    <InputLetterBox Letter="_gameInput.GetInputAt(idx)"/>
-                </MudItem>
-            }
-        </MudGrid>
-    }
-    <br/>
-</div>
-<div class="container" style=" bottom: 0;">
-    <Keyboard/>
-</div>
+    </div>
+    <div class="container" style=" bottom: 0;">
+        <Keyboard/>
+    </div>
 </div>
 @code {
     public void Dispose() {
@@ -47,7 +47,6 @@
         _gameInput.InputChanged -= OnInputChanged;
     }
     protected override async Task OnInitializedAsync() {
-        Console.WriteLine("OnInitialized");
         _game.GameUpdated += OnGameUpdated;
         _gameInput.InputChanged += OnInputChanged;
 
