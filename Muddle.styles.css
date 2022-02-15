@@ -1,0 +1,71 @@
+/* /Pages/Index.razor.rz.scp.css */
+.container[b-tp1q4kng4x] {
+    width: 100%;
+    min-width: 480px;
+    max-width: 720px;
+
+}
+.app[b-tp1q4kng4x] {
+    width: 100%;
+    margin: auto;
+}
+/* /Pages/InputLetterBox.razor.rz.scp.css */
+.tile-input[b-8hj5foyvoq] {
+    font-weight: bold;
+    background-color: black;
+    color: wheat;
+    border: 2px solid wheat;
+}
+.tile-empty[b-8hj5foyvoq] {
+    font-weight: bold;
+    background-color: dimgrey;
+    border: 2px solid grey;
+}
+/* /Pages/Keyboard.razor.rz.scp.css */
+#container:focus-visible[b-2i6cegr3g1] {
+    outline: none;
+}
+#container:focus[b-2i6cegr3g1] {
+    outline: none;
+}
+/* /Pages/KeyboardButton.razor.rz.scp.css */
+.key-button-letter[b-jghphfv4sc] {
+    text-transform: uppercase;
+    margin: auto;
+    text-align: center;
+    vertical-align: middle;
+    box-shadow: 0 3px 1px -2px rgba(0,0,0,.2),0 2px 2px 0 rgba(0,0,0,.14),0 1px 5px 0 rgba(0,0,0,.12);
+    height: 2.5rem;
+    line-height: 2.5rem;
+    border-radius: 5px;
+}
+.btn-none-hit[b-jghphfv4sc] {
+    background-color: dimgray !important;
+    color: white !important;
+}
+
+.btn-char-hit[b-jghphfv4sc] {
+    background-color: darkgoldenrod !important;
+    color: white !important;
+}
+
+.btn-full-hit[b-jghphfv4sc] {
+    background-color: darkgreen !important;
+    color: white !important;
+}
+/* /Pages/LetterBox.razor.rz.scp.css */
+.tile-full-hit[b-txkbd1lpu8] {
+    font-weight: bold;
+    background-color: darkgreen;
+    color: white;
+}
+.tile-partial-hit[b-txkbd1lpu8] {
+    font-weight: bold;
+    background-color: darkgoldenrod;
+    color: white;
+}
+.tile-not-hit[b-txkbd1lpu8] {
+    font-weight: bold;
+    background-color: dimgray;
+    color: white;
+}

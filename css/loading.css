@@ -1,0 +1,61 @@
+.loading-container {
+    width: 100%;
+    height: 100vh;
+    background-color: black;
+    margin: auto;
+    position: fixed;
+}
+.loading-text {
+    top: 50%;
+    left: 50%;
+    color: wheat;
+    font-weight: bold;
+    text-align: center;
+    position: absolute;
+    transform: translate(-50%, -50%);
+}
+.dots-container {
+    width: 18px;
+    height: 18px;
+    margin: auto;
+    position: absolute;
+    top: 40%;
+    left: 50%;
+    transform: translateX(-50%);
+}
+.dot {
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    margin: auto;
+    background-color: wheat;
+    position: absolute;
+}
+
+.dot-1 {
+    animation: orbit 1400ms linear infinite forwards;
+}
+.dot-2 {
+    animation: orbit 1400ms linear infinite 200ms backwards;
+}
+.dot-3 {
+    animation: orbit 1400ms linear infinite 400ms backwards;
+}
+.dot-4 {
+    animation: orbit 1400ms linear infinite 600ms backwards;
+}
+.dot-5 {
+    animation: orbit 1400ms linear infinite 800ms backwards;
+}
+.dot-6 {
+    animation: orbit 1400ms linear infinite 1000ms backwards;
+}
+.dot-7 {
+    animation: orbit 1400ms linear infinite 1200ms backwards;
+}
+
+@keyframes orbit {
+    0% { transform: rotate(0deg) translateX(3vw); background-color: rgba(245, 222, 179, 0.5);}
+    50% { transform: rotate(180deg) translateX(3vw); background-color: rgba(245, 222, 179, 0.5);}
+    100% { transform: rotate(360deg) translateX(3vw); background-color: rgba(245, 222, 179, 1);}
+}
