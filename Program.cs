@@ -13,7 +13,7 @@ builder.Services.AddSingleton<GameInput>();
 builder.Services.AddSingleton(
     sp => {
         var httpClient = sp.GetRequiredService<HttpClient>();
-        var filePath = "word-list.txt";
+        const string filePath = "word-list.txt";
         return new AnswerProvider(httpClient, filePath);
     });
 builder.Services.AddTransient(sp => new HttpClient { BaseAddress = new Uri(builder.HostEnvironment.BaseAddress) });
