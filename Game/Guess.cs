@@ -1,4 +1,4 @@
-namespace EICS.WordleBlazor.Game;
+namespace EverythingInCSharp.Muddle.Game;
 public class Guess {
     private readonly GuessResult[] _result;
     private readonly string _answer;

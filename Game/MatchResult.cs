@@ -1,4 +1,4 @@
-namespace EICS.WordleBlazor.Game;
+namespace EverythingInCSharp.Muddle.Game;
 public enum MatchResult {
     NoneHit,
     CharHit,

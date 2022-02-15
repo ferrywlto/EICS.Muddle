@@ -1,4 +1,4 @@
-namespace EICS.WordleBlazor.Game;
+namespace EverythingInCSharp.Muddle.Game;
 public class Game {
     public string Answer { get; private set; }
     private int MaxAttempt { get; set; }

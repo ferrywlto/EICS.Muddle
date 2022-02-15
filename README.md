@@ -8,7 +8,7 @@ The word Muddle can sometime explains as puzzle, which match the game nature. Ac
 
 ### Is it the same as the official Wordle?
 
-No. This project was made up for my `Everything in C#` article series and mainly for fun only. Therefore features like Facebook sharing and those record tracking features may not be implemented in foreseeable future.
+No. This project was made up for my `Everything in C#` article series and mainly for fun only. Features like Facebook sharing (⬜ 🟪 🟩) and those record tracking features is not on task list currently.
 
 However, this project also has features over the original Wordle:
 

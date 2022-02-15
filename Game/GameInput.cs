@@ -1,4 +1,4 @@
-namespace EICS.WordleBlazor.Game;
+namespace EverythingInCSharp.Muddle.Game;
 
 public class GameInput {
     public event Action? InputChanged;
@@ -17,7 +17,6 @@ public class GameInput {
             throw new Exception("Pre-mature flush. Do it only when buffer is fully filled.");
 
         var text = string.Join(string.Empty, _buffer);
-
         ResetBuffer();
 
         return text;

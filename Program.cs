@@ -1,8 +1,8 @@
+using EverythingInCSharp.Muddle;
+using EverythingInCSharp.Muddle.Game;
+using MudBlazor.Services;
 using Microsoft.AspNetCore.Components.Web;
 using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
-using EICS.WordleBlazor;
-using EICS.WordleBlazor.Game;
-using MudBlazor.Services;
 
 var builder = WebAssemblyHostBuilder.CreateDefault(args);
 builder.RootComponents.Add<App>("#app");

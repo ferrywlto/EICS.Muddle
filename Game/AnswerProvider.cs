@@ -1,13 +1,13 @@
-namespace EICS.WordleBlazor.Game;
+namespace EverythingInCSharp.Muddle.Game;
 
 public class AnswerProvider {
     private static readonly List<string> WordList = new();
     private static readonly Random Random = new();
     private readonly HttpClient _httpClient;
-    private readonly string filePath;
+    private readonly string _filePath;
     public AnswerProvider(HttpClient httpClient, string filePath) {
         _httpClient = httpClient;
-        this.filePath = filePath;
+        this._filePath = filePath;
     }
     public async Task<string> GetNewAnswer() {
         if (WordList.Count == 0) {
@@ -19,7 +19,7 @@ public class AnswerProvider {
     }
     private async Task LoadAnswersAsync() {
         WordList.Clear();
-        var fileContent = await _httpClient.GetStringAsync(filePath);
+        var fileContent = await _httpClient.GetStringAsync(_filePath);
         WordList.AddRange(fileContent.Split(Environment.NewLine));
     }
 }
