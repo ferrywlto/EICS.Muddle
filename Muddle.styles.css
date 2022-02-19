@@ -1,13 +1,29 @@
 /* /Pages/Index.razor.rz.scp.css */
-.container[b-tp1q4kng4x] {
-    width: 100%;
-    min-width: 480px;
-    max-width: 720px;
 
-}
-.app[b-tp1q4kng4x] {
+.letter-box-row[b-tp1q4kng4x] {
+    display: flex !important;
+    justify-content: center !important;
     width: 100%;
-    margin: auto;
+    min-width: 400px;
+}
+.input-row[b-tp1q4kng4x] {
+    display: flex !important;
+    justify-content: center !important;
+    width: 100%;
+}
+.top[b-tp1q4kng4x] {
+    margin-top: 1vh;
+    height: 500px;
+    max-height: 500px;
+    overflow-x: hidden;
+    overflow-y: scroll;
+
+    -ms-overflow-style: none;  /* IE and Edge */
+    scrollbar-width: none;  /* Firefox */
+}
+/* Hide scrollbar for Chrome, Safari and Opera */
+.top[b-tp1q4kng4x]::-webkit-scrollbar {
+    display: none;
 }
 /* /Pages/InputLetterBox.razor.rz.scp.css */
 .tile-input[b-8hj5foyvoq] {
@@ -27,6 +43,10 @@
 }
 #container:focus[b-2i6cegr3g1] {
     outline: none;
+}
+#container[b-2i6cegr3g1] {
+    min-width: 420px;
+    width: 720px;
 }
 /* /Pages/KeyboardButton.razor.rz.scp.css */
 .key-button-letter[b-jghphfv4sc] {
