@@ -84,11 +84,10 @@ a, .btn-link {
     line-height: 3rem;
     justify-content: center;
     align-items: center;
-    text-align: center;
-    vertical-align: middle;
+
     display: inline-flex;
-    box-sizing: border-box;
-    margin: auto;
+
+    margin: 0 3px 0 3px;
 
     text-transform: uppercase;
     user-select: none;

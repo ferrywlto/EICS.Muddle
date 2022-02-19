@@ -1,10 +1,12 @@
-.container {
-    width: 100%;
-    min-width: 480px;
-    max-width: 720px;
 
-}
-.app {
+.letter-box-row {
+    display: flex !important;
+    justify-content: center !important;
     width: 100%;
-    margin: auto;
+    min-width: 400px;
+}
+.input-row {
+    display: flex !important;
+    justify-content: center !important;
+    width: 100%;
 }
