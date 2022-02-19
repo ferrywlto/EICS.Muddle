@@ -6,6 +6,7 @@
 @implements IDisposable
 
 
+<div class="top">
 <MudGrid Justify="Justify.Center" Spacing="1">
     @if (_game.IsLose) {
         <MudAlert Severity="Severity.Warning" Variant="Variant.Filled" Elevation="24" NoIcon="true" ContentAlignment="HorizontalAlignment.Center" Style="max-width: 480px;">
@@ -39,6 +40,7 @@
     }
     <br/>
 </MudGrid>
+</div>
 <br/>
 <div class="input-row">
         <Keyboard/>

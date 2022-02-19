@@ -10,3 +10,17 @@
     justify-content: center !important;
     width: 100%;
 }
+.top {
+    margin-top: 1vh;
+    height: 500px;
+    max-height: 500px;
+    overflow-x: hidden;
+    overflow-y: scroll;
+
+    -ms-overflow-style: none;  /* IE and Edge */
+    scrollbar-width: none;  /* Firefox */
+}
+/* Hide scrollbar for Chrome, Safari and Opera */
+.top::-webkit-scrollbar {
+    display: none;
+}
