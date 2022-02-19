@@ -11,11 +11,9 @@
 
 <MudLayout>
     <MudAppBar Elevation="0">
-        <MudSpacer/>
-        <MudText Typo="Typo.h4">Muddle</MudText>
-        <MudSpacer/>
-        <MudIconButton Icon="@Icons.Material.Filled.Refresh" Color="Color.Inherit" OnClick="ResetGame" Disabled="!CanReset"/>
         <MudIconButton Icon="@Icons.Custom.Brands.GitHub" Color="Color.Inherit" Link="https://github.com/ferrywlto/EICS.Muddle" Target="_blank"/>
+        <MudText Typo="Typo.h4" Align="Align.Center" Style="width: 100%;">Muddle</MudText>
+        <MudIconButton Icon="@Icons.Material.Filled.Refresh" Color="Color.Inherit" OnClick="ResetGame" Disabled="!CanReset"/>
     </MudAppBar>
     <MudMainContent>
         <MudContainer MaxWidth="MaxWidth.Large" Class="my-16 pt-16">
