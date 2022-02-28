@@ -7,7 +7,7 @@ public class AnswerProvider {
     private readonly string _filePath;
     public AnswerProvider(HttpClient httpClient, string filePath) {
         _httpClient = httpClient;
-        this._filePath = filePath;
+        _filePath = filePath;
     }
     public async Task<string> GetNewAnswer() {
         if (WordList.Count == 0) {
