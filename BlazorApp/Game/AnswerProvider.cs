@@ -1,13 +1,12 @@
 namespace EverythingInCSharp.Muddle.Game;
-
 public class AnswerProvider {
     private static readonly List<string> WordList = new();
     private static readonly Random Random = new();
-    private readonly HttpClient _httpClient;
-    private readonly string _filePath;
-    public AnswerProvider(HttpClient httpClient, string filePath) {
-        _httpClient = httpClient;
-        _filePath = filePath;
+    
+    private readonly IAnswerSource _answerSource;
+    public AnswerProvider(IAnswerSource answerSource) {
+        _answerSource = answerSource;
+
     }
     public async Task<string> GetNewAnswer() {
         if (WordList.Count == 0) {
@@ -19,7 +18,7 @@ public class AnswerProvider {
     }
     private async Task LoadAnswersAsync() {
         WordList.Clear();
-        var fileContent = await _httpClient.GetStringAsync(_filePath);
-        WordList.AddRange(fileContent.Split(Environment.NewLine));
+        var answers = await _answerSource.LoadAsync();
+        WordList.AddRange(answers);
     }
 }
