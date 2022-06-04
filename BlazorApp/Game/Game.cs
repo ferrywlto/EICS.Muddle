@@ -8,6 +8,12 @@ public class Game {
     public bool IsWin { get; private set; }
     public bool IsLose => !IsWin && Results.Count >= MaxAttempt && !Answer.Equals(string.Empty);
 
+    private bool IsGameEnded =>
+        IsWin
+        || IsLose
+        || Answer.Equals(string.Empty)
+        || Results.Count >= MaxAttempt;
+
     public Game() {
         Answer = string.Empty;
         Results = new List<GuessResult[]>();
@@ -23,9 +29,7 @@ public class Game {
     }
 
     public void Guess(string input) {
-        if(IsWin || IsLose) return;
-        if(Answer.Equals(string.Empty)) return;
-        if(Results.Count == MaxAttempt) return;
+        if(IsGameEnded) return;
 
         var guess = new Guess(Answer);
         var guessResults = guess.Match(input);

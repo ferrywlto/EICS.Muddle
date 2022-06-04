@@ -1,0 +1,66 @@
+﻿@using EverythingInCSharp.Muddle.Game
+@page "/"
+@inject Game _game
+@inject GameInput _gameInput
+@inject AnswerProvider _answerProvider
+
+@implements IDisposable
+
+<div class="top">
+<MudGrid Justify="Justify.Center" Spacing="1">
+    @if (_game.IsLose) {
+        <MudAlert Severity="Severity.Warning" Variant="Variant.Filled" Elevation="24" NoIcon="true" ContentAlignment="HorizontalAlignment.Center" Style="max-width: 480px;">
+            @_game.Answer.ToUpper()
+        </MudAlert>
+        <br/>
+    }
+    @foreach (var guessResult in _game.Results) {
+        <MudItem Class="d-flex justify-center" xs="12">
+            <div class="letter-box-row">
+                @foreach ((var letter, var matchResult) in guessResult) {
+                    <LetterBox Letter="letter" MatchResult="matchResult"/>
+                }
+            </div>
+        </MudItem>
+        <br/>
+    }
+    @if (_game.IsWin) {
+        <MudAlert Severity="Severity.Success" Variant="Variant.Filled" Elevation="24" NoIcon="true" ContentAlignment="HorizontalAlignment.Center" Style="max-width: 480px;">Congratuations!</MudAlert>
+    }
+    else if(!_game.IsLose) {
+        <MudItem Class="d-flex justify-center" xs="12">
+            <div class="letter-box-row">
+                @for (var i = 0; i < _game.Answer.Length; i += 1) {
+                    var idx = i;
+                    <InputLetterBox Letter="_gameInput.GetInputAt(idx)"/>
+                }
+            </div>
+        </MudItem>
+        <br/>
+    }
+    <br/>
+</MudGrid>
+</div>
+<br/>
+<div class="input-row">
+        <Keyboard/>
+</div>
+
+@code {
+    public void Dispose() {
+        _game.GameUpdated -= OnGameUpdated;
+        _gameInput.InputChanged -= OnInputChanged;
+    }
+    protected override async Task OnInitializedAsync() {
+        _game.GameUpdated += OnGameUpdated;
+        _gameInput.InputChanged += OnInputChanged;
+
+        var answer = await _answerProvider.GetNewAnswer();
+        _game.Reset(answer, 6);
+        _gameInput.Reset(answer.Length);
+    }
+
+    private void OnInputChanged() { InvokeAsync(StateHasChanged); }
+    private void OnGameUpdated() { InvokeAsync(StateHasChanged); }
+
+}

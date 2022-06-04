@@ -1,3 +1,5 @@
+using System.Collections;
+
 namespace EverythingInCSharp.Muddle.Game;
 public class Guess {
     private readonly GuessResult[] _result;
